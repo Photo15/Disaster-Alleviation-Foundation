@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Incident Form</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <h2>Test Incident Report Form</h2>
+    <form id="incidentForm" action="/IncidentReports/Create" method="post">
+        <div>
+            <label for="Title">Title:</label>
+            <input type="text" id="Title" name="Title" required>
+        </div>
+        <div>
+            <label for="Description">Description:</label>
+            <textarea id="Description" name="Description" required></textarea>
+        </div>
+        <div>
+            <label for="Location">Location:</label>
+            <input type="text" id="Location" name="Location" required>
+        </div>
+        <div>
+            <label for="Priority">Priority:</label>
+            <select id="Priority" name="Priority" required>
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <button type="submit">Submit Report</button>
+    </form>
+
+    <script>
+        $('#incidentForm').on('submit', function(e) {
+            e.preventDefault();
+            console.log('Form would submit with:');
+            console.log('Title:', $('#Title').val());
+            console.log('Description:', $('#Description').val());
+            console.log('Location:', $('#Location').val());
+            console.log('Priority:', $('#Priority').val());
+            
+            // Check if all required fields are filled
+            var isValid = true;
+            var requiredFields = ['Title', 'Description', 'Location', 'Priority'];
+            
+            requiredFields.forEach(function(field) {
+                if (!$('#' + field).val()) {
+                    console.error(field + ' is required');
+                    isValid = false;
+                }
+            });
+            
+            if (isValid) {
+                console.log('Form validation passed - would submit to server');
+                alert('Form validation passed! In a real application, this would submit to the server.');
+            } else {
+                console.log('Form validation failed');
+                alert('Please fill in all required fields');
+            }
+        });
+    </script>
+</body>
+</html>

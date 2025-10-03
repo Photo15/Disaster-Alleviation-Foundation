@@ -1,0 +1,110 @@
+@model Donation
+
+@{
+    ViewData["Title"] = "Make a Donation";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="bi bi-gift me-2"></i>@ViewData["Title"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="DonorName" class="form-control" placeholder="Your Name" />
+                                <label asp-for="DonorName" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="DonorName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="DonorEmail" class="form-control" placeholder="Email Address" />
+                                <label asp-for="DonorEmail" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="DonorEmail" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <div class="form-floating">
+                                <select asp-for="ResourceType" class="form-select">
+                                    <option value="">Select Resource Type</option>
+                                    <option value="Food">Food & Water</option>
+                                    <option value="Clothing">Clothing & Blankets</option>
+                                    <option value="Medical">Medical Supplies</option>
+                                    <option value="Tools">Tools & Equipment</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Money">Monetary Donation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <label asp-for="ResourceType" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="ResourceType" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="Quantity" class="form-control" placeholder="Quantity" type="number" min="1" />
+                                <label asp-for="Quantity" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="Quantity" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="DonorPhone" class="form-control" placeholder="Phone Number" />
+                                <label asp-for="DonorPhone" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="DonorPhone" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="DeliveryAddress" class="form-control" placeholder="Pickup/Delivery Address" />
+                                <label asp-for="DeliveryAddress" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="DeliveryAddress" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-floating">
+                                <textarea asp-for="Notes" class="form-control" style="height: 100px" placeholder="Additional notes"></textarea>
+                                <label asp-for="Notes" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="Notes" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Thank you for your generosity!</strong> Your donation will be reviewed by our team and 
+                        you will be contacted within 24-48 hours regarding pickup or delivery arrangements.
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-left me-1"></i>Back to List
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-heart me-1"></i>Submit Donation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

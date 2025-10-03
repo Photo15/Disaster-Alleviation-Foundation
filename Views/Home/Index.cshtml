@@ -1,0 +1,120 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="jumbotron bg-primary text-white p-5 rounded mb-5">
+        <h1 class="display-4 fw-bold">
+            <i class="bi bi-heart-pulse me-3"></i>Disaster Alleviation Foundation
+        </h1>
+        <p class="lead">Providing rapid response and relief efforts for disaster-affected communities worldwide.</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <hr class="my-4">
+            <p>Join our mission to help communities recover and rebuild after disasters.</p>
+            <a class="btn btn-light btn-lg me-3" asp-area="Identity" asp-page="/Account/Register" role="button">
+                <i class="bi bi-person-plus me-2"></i>Join Us Today
+            </a>
+            <a class="btn btn-outline-light btn-lg" asp-area="Identity" asp-page="/Account/Login" role="button">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+            </a>
+        }
+        else
+        {
+            <hr class="my-4">
+            <a class="btn btn-light btn-lg" asp-controller="Dashboard" asp-action="Index" role="button">
+                <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-danger">
+            <div class="card-body text-center">
+                <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Report Incidents</h5>
+                <p class="card-text">Report disaster incidents and emergencies to help coordinate relief efforts.</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="IncidentReports" asp-action="Create" class="btn btn-danger">Report Now</a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-danger">Login to Report</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-success">
+            <div class="card-body text-center">
+                <i class="bi bi-gift-fill text-success" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Make Donations</h5>
+                <p class="card-text">Donate resources, supplies, and materials to support disaster relief efforts.</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Donations" asp-action="Create" class="btn btn-success">Donate Now</a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-success">Login to Donate</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-info">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill text-info" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Volunteer</h5>
+                <p class="card-text">Join our volunteer network and help make a difference in disaster-affected communities.</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="VolunteerTasks" asp-action="Available" class="btn btn-info">Find Tasks</a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-info">Login to Volunteer</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h3 class="text-primary">Our Mission</h3>
+        <p>
+            The Disaster Alleviation Foundation is committed to providing immediate relief and long-term recovery 
+            support to communities affected by natural and man-made disasters. We coordinate resources, volunteers, 
+            and aid to ensure rapid response and effective recovery efforts.
+        </p>
+        <ul>
+            <li>Emergency response coordination</li>
+            <li>Resource and supply distribution</li>
+            <li>Volunteer mobilization</li>
+            <li>Community rebuilding support</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h3 class="text-primary">Get Involved</h3>
+        <p>
+            There are many ways to get involved and help communities in need. Whether you can volunteer your time, 
+            donate resources, or report incidents, your contribution makes a difference.
+        </p>
+        <div class="d-grid gap-2">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Create Account</a>
+                <a class="btn btn-outline-primary" asp-controller="Home" asp-action="About">Learn More</a>
+            }
+            else
+            {
+                <a class="btn btn-primary" asp-controller="Dashboard" asp-action="Index">View Dashboard</a>
+                <a class="btn btn-outline-primary" asp-controller="Home" asp-action="About">Learn More</a>
+            }
+        </div>
+    </div>
+</div>

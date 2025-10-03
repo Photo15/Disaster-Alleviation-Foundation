@@ -1,0 +1,148 @@
+@model DisasterAlleviationFoundation.Models.Donation
+
+@{
+    ViewData["Title"] = "Donation Details";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">
+        <i class="bi bi-gift me-2"></i>Donation Details
+    </h2>
+    <div>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-pencil me-1"></i>Edit
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                <i class="bi bi-trash me-1"></i>Delete
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-gift me-2"></i>@Html.DisplayFor(model => model.ResourceType)
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-muted">Donor Information</h6>
+                        <p><strong>Name:</strong> @Html.DisplayFor(model => model.DonorName)</p>
+                        @if (!string.IsNullOrEmpty(Model.DonorEmail))
+                        {
+                            <p><strong>Email:</strong> @Html.DisplayFor(model => model.DonorEmail)</p>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DonorPhone))
+                        {
+                            <p><strong>Phone:</strong> @Html.DisplayFor(model => model.DonorPhone)</p>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted">Donation Details</h6>
+                        <p><strong>Quantity:</strong> @Html.DisplayFor(model => model.Quantity)</p>
+                        <p><strong>Date:</strong> @Html.DisplayFor(model => model.DateDonated)</p>
+                        <p><strong>Status:</strong> 
+                            @if (Model.Status == "Received")
+                            {
+                                <span class="badge bg-success">@Model.Status</span>
+                            }
+                            else if (Model.Status == "In Transit")
+                            {
+                                <span class="badge bg-warning">@Model.Status</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary">@Model.Status</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                
+                @if (!string.IsNullOrEmpty(Model.DeliveryAddress))
+                {
+                    <hr>
+                    <h6 class="text-muted">Delivery Address</h6>
+                    <p><i class="bi bi-geo-alt me-1"></i>@Html.DisplayFor(model => model.DeliveryAddress)</p>
+                }
+                
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <hr>
+                    <h6 class="text-muted">Additional Notes</h6>
+                    <p>@Html.DisplayFor(model => model.Notes)</p>
+                }
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Status Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    @if (Model.Status == "Received")
+                    {
+                        <span class="badge bg-success fs-6"><i class="bi bi-check-circle me-1"></i>Received</span>
+                    }
+                    else if (Model.Status == "In Transit")
+                    {
+                        <span class="badge bg-warning fs-6"><i class="bi bi-truck me-1"></i>In Transit</span>
+                    }
+                    else if (Model.Status == "Pending")
+                    {
+                        <span class="badge bg-primary fs-6"><i class="bi bi-clock me-1"></i>Pending</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary fs-6">@Model.Status</span>
+                    }
+                </div>
+                
+                <hr>
+                
+                <div class="small">
+                    <p><strong>Created:</strong><br>@Model.DateDonated.ToString("MMM dd, yyyy 'at' h:mm tt")</p>
+                    
+                    @if (Model.Status == "Received")
+                    {
+                        <p class="text-success"><i class="bi bi-check-circle me-1"></i>This donation has been successfully received.</p>
+                    }
+                    else if (Model.Status == "In Transit")
+                    {
+                        <p class="text-warning"><i class="bi bi-truck me-1"></i>This donation is being transported.</p>
+                    }
+                    else if (Model.Status == "Pending")
+                    {
+                        <p class="text-primary"><i class="bi bi-clock me-1"></i>This donation is pending processing.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Back to List
+    </a>
+    @if (User.IsInRole("Donor"))
+    {
+        <a asp-action="MyDonations" class="btn btn-outline-primary ms-2">
+            <i class="bi bi-person-check me-1"></i>My Donations
+        </a>
+    }
+    @if (User.IsInRole("Admin") || User.IsInRole("Donor"))
+    {
+        <a asp-action="Create" class="btn btn-success ms-2">
+            <i class="bi bi-plus-circle me-1"></i>New Donation
+        </a>
+    }
+</div>

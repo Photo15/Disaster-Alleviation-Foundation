@@ -1,0 +1,194 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
+    <div class="badge bg-primary fs-6">@ViewBag.UserRole</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card border-warning">
+            <div class="card-body text-center">
+                <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 2rem;"></i>
+                <h4 class="mt-2">@Model.TotalIncidents</h4>
+                <p class="card-text">Total Incidents</p>
+                <a href="@Url.Action("Index", "IncidentReports")" class="btn btn-outline-warning btn-sm">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-success">
+            <div class="card-body text-center">
+                <i class="bi bi-gift-fill text-success" style="font-size: 2rem;"></i>
+                <h4 class="mt-2">@Model.PendingDonations</h4>
+                <p class="card-text">Pending Donations</p>
+                <a href="@Url.Action("Index", "Donations")" class="btn btn-outline-success btn-sm">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-info">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill text-info" style="font-size: 2rem;"></i>
+                <h4 class="mt-2">@Model.OpenVolunteerTasks</h4>
+                <p class="card-text">Open Tasks</p>
+                <a href="@Url.Action("Index", "VolunteerTasks")" class="btn btn-outline-info btn-sm">View All</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-lightning me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <a href="@Url.Action("Create", "IncidentReports")" class="btn btn-danger w-100">
+                            <i class="bi bi-plus-circle me-1"></i>Report Incident
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="@Url.Action("Create", "Donations")" class="btn btn-success w-100">
+                            <i class="bi bi-plus-circle me-1"></i>Make Donation
+                        </a>
+                    </div>
+                    @if (User.IsInRole("Volunteer") || User.IsInRole("Admin"))
+                    {
+                        <div class="col-md-3 mb-2">
+                            <a href="@Url.Action("Available", "VolunteerTasks")" class="btn btn-info w-100">
+                                <i class="bi bi-search me-1"></i>Find Tasks
+                            </a>
+                        </div>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col-md-3 mb-2">
+                            <a href="@Url.Action("Create", "VolunteerTasks")" class="btn btn-secondary w-100">
+                                <i class="bi bi-plus-circle me-1"></i>Create Task
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Incidents -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-exclamation-triangle me-1"></i>Recent Incidents</h6>
+                <a href="@Url.Action("Index", "IncidentReports")" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentIncidents.Any())
+                {
+                    @foreach (var incident in Model.RecentIncidents)
+                    {
+                        <div class="border-bottom pb-2 mb-2">
+                            <h6 class="mb-1">@incident.Title</h6>
+                            <small class="text-muted">
+                                @incident.Location - @incident.DateReported.ToString("MMM dd, yyyy")
+                            </small>
+                            <div>
+                                <span class="badge @(incident.Status == "Open" ? "bg-warning" : "bg-success") me-1">@incident.Status</span>
+                                <span class="badge @(incident.Priority == "High" ? "bg-danger" : incident.Priority == "Medium" ? "bg-warning" : "bg-secondary")">@incident.Priority</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No recent incidents.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Donations -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-gift me-1"></i>Recent Donations</h6>
+                <a href="@Url.Action("Index", "Donations")" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentDonations.Any())
+                {
+                    @foreach (var donation in Model.RecentDonations)
+                    {
+                        <div class="border-bottom pb-2 mb-2">
+                            <h6 class="mb-1">@donation.ResourceType</h6>
+                            <small class="text-muted">
+                                @donation.DonorName - Qty: @donation.Quantity
+                            </small>
+                            <div>
+                                <span class="badge @(donation.Status == "Pending" ? "bg-warning" : donation.Status == "Approved" ? "bg-success" : "bg-info")">@donation.Status</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No recent donations.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Tasks -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-calendar-event me-1"></i>
+                    @if (ViewBag.UserRole == "Volunteer")
+                    {
+                        <span>My Tasks</span>
+                    }
+                    else
+                    {
+                        <span>Upcoming Tasks</span>
+                    }
+                </h6>
+                <a href="@Url.Action("Index", "VolunteerTasks")" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                @if (Model.UpcomingTasks.Any())
+                {
+                    @foreach (var task in Model.UpcomingTasks)
+                    {
+                        <div class="border-bottom pb-2 mb-2">
+                            <h6 class="mb-1">@task.Title</h6>
+                            <small class="text-muted">
+                                @task.TaskDate.ToString("MMM dd, yyyy") 
+                                @if (task.EstimatedHours.HasValue)
+                                {
+                                    <span>- @task.EstimatedHours.Value hrs</span>
+                                }
+                            </small>
+                            <div>
+                                <span class="badge @(task.Status == "Open" ? "bg-success" : task.Status == "Assigned" ? "bg-info" : "bg-secondary")">@task.Status</span>
+                                <span class="badge @(task.Priority == "High" ? "bg-danger" : task.Priority == "Medium" ? "bg-warning" : "bg-secondary")">@task.Priority</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No upcoming tasks.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

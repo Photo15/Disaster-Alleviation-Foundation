@@ -1,0 +1,198 @@
+@model DisasterAlleviationFoundation.Models.VolunteerTask
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">
+        <i class="bi bi-list-task me-2"></i>Task Details
+    </h2>
+    <div>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-pencil me-1"></i>Edit
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                <i class="bi bi-trash me-1"></i>Delete
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-list-task me-2"></i>@Html.DisplayFor(model => model.Title)
+                    @if (Model.Priority == "High")
+                    {
+                        <span class="badge bg-danger ms-2">High Priority</span>
+                    }
+                    else if (Model.Priority == "Medium")
+                    {
+                        <span class="badge bg-warning text-dark ms-2">Medium Priority</span>
+                    }
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-muted">Task Information</h6>
+                        <p><strong>Date & Time:</strong> @Html.DisplayFor(model => model.TaskDate)</p>
+                        <p><strong>Estimated Hours:</strong> @Html.DisplayFor(model => model.EstimatedHours)</p>
+                        @if (!string.IsNullOrEmpty(Model.Location))
+                        {
+                            <p><strong>Location:</strong> @Html.DisplayFor(model => model.Location)</p>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted">Status & Assignment</h6>
+                        <p><strong>Status:</strong> 
+                            @if (Model.Status == "Completed")
+                            {
+                                <span class="badge bg-success">@Model.Status</span>
+                            }
+                            else if (Model.Status == "Assigned")
+                            {
+                                <span class="badge bg-warning">@Model.Status</span>
+                            }
+                            else if (Model.Status == "Open")
+                            {
+                                <span class="badge bg-info">@Model.Status</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@Model.Status</span>
+                            }
+                        </p>
+                        <p><strong>Created:</strong> @Html.DisplayFor(model => model.CreatedDate)</p>
+                        @if (Model.CompletionDate.HasValue)
+                        {
+                            <p><strong>Completed:</strong> @Html.DisplayFor(model => model.CompletionDate)</p>
+                        }
+                    </div>
+                </div>
+                
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <hr>
+                    <h6 class="text-muted">Description</h6>
+                    <p>@Html.DisplayFor(model => model.Description)</p>
+                }
+                
+                @if (!string.IsNullOrEmpty(Model.RequiredSkills))
+                {
+                    <hr>
+                    <h6 class="text-muted">Required Skills</h6>
+                    <span class="badge bg-secondary fs-6">@Html.DisplayFor(model => model.RequiredSkills)</span>
+                }
+                
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <hr>
+                    <h6 class="text-muted">Additional Notes</h6>
+                    <p>@Html.DisplayFor(model => model.Notes)</p>
+                }
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Task Actions</h6>
+            </div>
+            <div class="card-body">
+                @if (Model.Status == "Open" && string.IsNullOrEmpty(Model.AssignedVolunteerId))
+                {
+                    @if (User.IsInRole("Volunteer") || User.IsInRole("Admin"))
+                    {
+                        <form asp-action="SignUp" asp-route-id="@Model.Id" method="post">
+                            <button type="submit" class="btn btn-success w-100 mb-2" 
+                                    onclick="return confirm('Are you sure you want to sign up for this task?')">
+                                <i class="bi bi-person-plus me-1"></i>Sign Up for Task
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <p class="text-muted small">Sign up requires Volunteer role</p>
+                    }
+                }
+                else if (Model.Status == "Assigned" && !string.IsNullOrEmpty(Model.AssignedVolunteerId))
+                {
+                    @if (User.IsInRole("Volunteer") || User.IsInRole("Admin"))
+                    {
+                        <form asp-action="CompleteTask" asp-route-id="@Model.Id" method="post">
+                            <button type="submit" class="btn btn-primary w-100 mb-2" 
+                                    onclick="return confirm('Mark this task as completed?')">
+                                <i class="bi bi-check-circle me-1"></i>Mark Complete
+                            </button>
+                        </form>
+                    }
+                    <div class="alert alert-info small">
+                        <i class="bi bi-info-circle me-1"></i>This task has been assigned to a volunteer.
+                    </div>
+                }
+                else if (Model.Status == "Completed")
+                {
+                    <div class="alert alert-success small">
+                        <i class="bi bi-check-circle me-1"></i>This task has been completed successfully!
+                    </div>
+                }
+                
+                <hr>
+                
+                <div class="small">
+                    <h6>Task Priority</h6>
+                    @if (Model.Priority == "High")
+                    {
+                        <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>High - Urgent attention required</p>
+                    }
+                    else if (Model.Priority == "Medium")
+                    {
+                        <p class="text-warning"><i class="bi bi-exclamation-circle me-1"></i>Medium - Moderate priority</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted"><i class="bi bi-info-circle me-1"></i>Low - Standard priority</p>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        @if (Model.Priority == "High")
+        {
+            <div class="card mt-3 border-danger">
+                <div class="card-body bg-danger bg-opacity-10">
+                    <h6 class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>High Priority Task</h6>
+                    <p class="small mb-0">This task requires urgent attention and should be completed as soon as possible.</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Back to List
+    </a>
+    @if (User.IsInRole("Volunteer"))
+    {
+        <a asp-action="Available" class="btn btn-outline-primary ms-2">
+            <i class="bi bi-search me-1"></i>Available Tasks
+        </a>
+        <a asp-action="MyTasks" class="btn btn-outline-success ms-2">
+            <i class="bi bi-person-check me-1"></i>My Tasks
+        </a>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-success ms-2">
+            <i class="bi bi-plus-circle me-1"></i>New Task
+        </a>
+    }
+</div>

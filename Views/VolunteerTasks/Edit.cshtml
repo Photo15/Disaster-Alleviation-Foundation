@@ -1,0 +1,164 @@
+@model DisasterAlleviationFoundation.Models.VolunteerTask
+
+@{
+    ViewData["Title"] = "Edit Volunteer Task";
+}
+
+<h2 class="text-primary mb-4">
+    <i class="bi bi-pencil me-2"></i>Edit Volunteer Task
+</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedDate" />
+            <input type="hidden" asp-for="CompletionDate" />
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Task Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="TaskDate" class="control-label"></label>
+                                <input asp-for="TaskDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="TaskDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="EstimatedHours" class="control-label"></label>
+                                <input asp-for="EstimatedHours" class="form-control" type="number" min="0.5" step="0.5" />
+                                <span asp-validation-for="EstimatedHours" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Location" class="control-label"></label>
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="Status" class="control-label"></label>
+                                <select asp-for="Status" class="form-select">
+                                    <option value="Open">Open</option>
+                                    <option value="Assigned">Assigned</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="Priority" class="control-label"></label>
+                                <select asp-for="Priority" class="form-select">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                                <span asp-validation-for="Priority" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="RequiredSkills" class="control-label"></label>
+                                <select asp-for="RequiredSkills" class="form-select">
+                                    <option value="">No specific skills required</option>
+                                    <option value="General Labor">General Labor</option>
+                                    <option value="Medical">Medical Skills</option>
+                                    <option value="Construction">Construction/Repair</option>
+                                    <option value="Administrative">Administrative</option>
+                                    <option value="Driver">Driver/Transportation</option>
+                                    <option value="Technical">Technical/IT</option>
+                                    <option value="Food Service">Food Service</option>
+                                    <option value="Communication">Communication/Translation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span asp-validation-for="RequiredSkills" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="AssignedVolunteerId" class="control-label"></label>
+                        <input asp-for="AssignedVolunteerId" class="form-control" readonly 
+                               placeholder="Auto-assigned when volunteer signs up" />
+                        <span asp-validation-for="AssignedVolunteerId" class="text-danger"></span>
+                        <small class="form-text text-muted">This field is automatically populated when a volunteer signs up for the task.</small>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Notes" class="control-label"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle me-1"></i>Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="bi bi-arrow-left me-1"></i>Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Edit Guidelines</h6>
+            </div>
+            <div class="card-body">
+                <ul class="small mb-0">
+                    <li>Update status as the task progresses</li>
+                    <li>Modify priority if circumstances change</li>
+                    <li>Add notes for important updates</li>
+                    <li>Ensure location and timing information is accurate</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">Status Meanings</h6>
+            </div>
+            <div class="card-body">
+                <ul class="small mb-0">
+                    <li><strong>Open:</strong> Available for volunteers to sign up</li>
+                    <li><strong>Assigned:</strong> Volunteer has signed up</li>
+                    <li><strong>In Progress:</strong> Work has started</li>
+                    <li><strong>Completed:</strong> Task finished successfully</li>
+                    <li><strong>Cancelled:</strong> Task no longer needed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

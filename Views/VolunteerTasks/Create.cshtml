@@ -1,0 +1,144 @@
+@model DisasterAlleviationFoundation.Models.VolunteerTask
+
+@{
+    ViewData["Title"] = "Create Volunteer Task";
+}
+
+<h2 class="text-primary mb-4">
+    <i class="bi bi-plus-circle me-2"></i>Create New Volunteer Task
+</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Task Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" placeholder="Enter a descriptive title for the task" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="4" 
+                                placeholder="Provide detailed description of what needs to be done"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="TaskDate" class="control-label"></label>
+                                <input asp-for="TaskDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="TaskDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="EstimatedHours" class="control-label"></label>
+                                <input asp-for="EstimatedHours" class="form-control" type="number" min="0.5" step="0.5" 
+                                       placeholder="Hours needed" />
+                                <span asp-validation-for="EstimatedHours" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Location" class="control-label"></label>
+                        <input asp-for="Location" class="form-control" placeholder="Where will this task take place?" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="Priority" class="control-label"></label>
+                                <select asp-for="Priority" class="form-select">
+                                    <option value="">Select priority level</option>
+                                    <option value="Low">Low - Standard priority</option>
+                                    <option value="Medium">Medium - Moderate urgency</option>
+                                    <option value="High">High - Urgent attention required</option>
+                                </select>
+                                <span asp-validation-for="Priority" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="RequiredSkills" class="control-label"></label>
+                                <select asp-for="RequiredSkills" class="form-select">
+                                    <option value="">No specific skills required</option>
+                                    <option value="General Labor">General Labor</option>
+                                    <option value="Medical">Medical Skills</option>
+                                    <option value="Construction">Construction/Repair</option>
+                                    <option value="Administrative">Administrative</option>
+                                    <option value="Driver">Driver/Transportation</option>
+                                    <option value="Technical">Technical/IT</option>
+                                    <option value="Food Service">Food Service</option>
+                                    <option value="Communication">Communication/Translation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span asp-validation-for="RequiredSkills" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Notes" class="control-label"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3" 
+                                placeholder="Additional notes or special instructions"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle me-1"></i>Create Task
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="bi bi-arrow-left me-1"></i>Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Task Creation Guidelines</h6>
+            </div>
+            <div class="card-body">
+                <ul class="small mb-0">
+                    <li><strong>Title:</strong> Use clear, descriptive titles</li>
+                    <li><strong>Description:</strong> Include specific details about what needs to be done</li>
+                    <li><strong>Date/Time:</strong> Set realistic timeframes</li>
+                    <li><strong>Location:</strong> Provide complete address or landmarks</li>
+                    <li><strong>Priority:</strong> 
+                        <ul class="mt-2">
+                            <li><span class="text-danger">High:</span> Urgent, life-safety issues</li>
+                            <li><span class="text-warning">Medium:</span> Important but not urgent</li>
+                            <li><span class="text-muted">Low:</span> Can be done when time permits</li>
+                        </ul>
+                    </li>
+                    <li><strong>Skills:</strong> Specify if special training is needed</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="text-primary">Need Help?</h6>
+                <p class="small mb-0">Contact the volunteer coordinator at volunteer@disasteralleviation.org for assistance with task creation.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

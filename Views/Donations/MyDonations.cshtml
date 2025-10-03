@@ -1,0 +1,123 @@
+@model IEnumerable<DisasterAlleviationFoundation.Models.Donation>
+
+@{
+    ViewData["Title"] = "My Donations";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">
+        <i class="bi bi-gift me-2"></i>My Donations
+    </h2>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i>Make New Donation
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <i class="bi bi-gift text-muted" style="font-size: 3rem;"></i>
+        <h4 class="text-muted mt-3">No Donations Yet</h4>
+        <p class="text-muted">You haven't made any donations yet. Start making a difference today!</p>
+        <a asp-action="Create" class="btn btn-success">Make Your First Donation</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title text-success">@Html.DisplayFor(modelItem => item.ResourceType)</h5>
+                            <span class="badge @(item.Status == "Received" ? "bg-success" : item.Status == "In Transit" ? "bg-warning" : "bg-primary")">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </span>
+                        </div>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.DonorName)</h6>
+                        
+                        @if (!string.IsNullOrEmpty(item.Notes))
+                        {
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Notes)</p>
+                        }
+                        
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar-plus me-1"></i>
+                                Donated: @Html.DisplayFor(modelItem => item.DateDonated)
+                            </small>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-123 me-1"></i>
+                                Quantity: @Html.DisplayFor(modelItem => item.Quantity)
+                            </small>
+                        </div>
+                        
+                        @if (!string.IsNullOrEmpty(item.DeliveryAddress))
+                        {
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                                </small>
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(item.Notes))
+                        {
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-sticky me-1"></i>
+                                    @item.Notes
+                                </small>
+                            </div>
+                        }
+                        
+                        <div class="d-grid">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">
+                                <i class="bi bi-eye me-1"></i>View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        }
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success">Total Donations</h5>
+                    <h2 class="text-primary">@Model.Count()</h2>
+                    <p class="card-text">items donated</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success">Latest Status</h5>
+                    <h4 class="text-primary">@(Model.LastOrDefault()?.Status ?? "N/A")</h4>
+                    <p class="card-text">most recent donation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-list me-1"></i>All Donations
+    </a>
+    <a asp-action="Create" class="btn btn-success ms-2">
+        <i class="bi bi-plus-circle me-1"></i>Make Another Donation
+    </a>
+</div>

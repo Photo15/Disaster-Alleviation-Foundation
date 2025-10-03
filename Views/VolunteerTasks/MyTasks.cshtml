@@ -1,0 +1,129 @@
+@model IEnumerable<DisasterAlleviationFoundation.Models.VolunteerTask>
+
+@{
+    ViewData["Title"] = "My Volunteer Tasks";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">
+        <i class="bi bi-person-check me-2"></i>My Volunteer Tasks
+    </h2>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <i class="bi bi-info-circle text-muted" style="font-size: 3rem;"></i>
+        <h4 class="text-muted mt-3">No Assigned Tasks</h4>
+        <p class="text-muted">You haven't signed up for any volunteer tasks yet.</p>
+        <a asp-action="Available" class="btn btn-primary">Browse Available Tasks</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 @(item.Status == "Completed" ? "border-success" : item.Status == "Assigned" ? "border-primary" : "border-secondary")">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                            @if (item.Status == "Completed")
+                            {
+                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Completed</span>
+                            }
+                            else if (item.Status == "Assigned")
+                            {
+                                <span class="badge bg-primary"><i class="bi bi-person-check me-1"></i>Assigned</span>
+                            }
+                        </div>
+                        
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar-event me-1"></i>
+                                @Html.DisplayFor(modelItem => item.TaskDate)
+                            </small>
+                        </div>
+                        
+                        @if (!string.IsNullOrEmpty(item.Location))
+                        {
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </small>
+                            </div>
+                        }
+                        
+                        @if (item.EstimatedHours.HasValue)
+                        {
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-clock me-1"></i>
+                                    @item.EstimatedHours hours estimated
+                                </small>
+                            </div>
+                        }
+                        
+                        @if (item.CompletionDate.HasValue)
+                        {
+                            <div class="mb-2">
+                                <small class="text-success">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    Completed: @item.CompletionDate.Value.ToString("MMM dd, yyyy")
+                                </small>
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(item.RequiredSkills))
+                        {
+                            <div class="mb-3">
+                                <span class="badge bg-secondary">@item.RequiredSkills</span>
+                            </div>
+                        }
+                        
+                        <div class="d-grid gap-2">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-eye me-1"></i>View Details
+                            </a>
+                            @if (item.Status == "Assigned")
+                            {
+                                <form asp-action="CompleteTask" asp-route-id="@item.Id" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-success btn-sm w-100" 
+                                            onclick="return confirm('Mark this task as completed?')">
+                                        <i class="bi bi-check-circle me-1"></i>Mark Complete
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                    
+                    @if (item.Priority == "High")
+                    {
+                        <div class="card-footer bg-danger text-white">
+                            <small><i class="bi bi-exclamation-triangle me-1"></i>High Priority</small>
+                        </div>
+                    }
+                    else if (item.Priority == "Medium")
+                    {
+                        <div class="card-footer bg-warning text-dark">
+                            <small><i class="bi bi-exclamation-circle me-1"></i>Medium Priority</small>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<div class="mt-4">
+    <a asp-action="Available" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Find More Tasks
+    </a>
+    <a asp-action="Index" class="btn btn-secondary ms-2">
+        <i class="bi bi-list me-1"></i>All Tasks
+    </a>
+</div>

@@ -1,0 +1,126 @@
+@{
+    ViewData["Title"] = "Contact";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3 class="text-primary">Get in Touch</h3>
+        <p>
+            We're here to help and answer any questions you may have. Whether you need emergency assistance, 
+            want to volunteer, or have questions about our programs, don't hesitate to reach out.
+        </p>
+
+        <div class="card border-danger mb-4">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="bi bi-telephone-fill me-2"></i>Emergency Contact</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <strong>24/7 Emergency Hotline:</strong><br>
+                    <span class="h4 text-danger">1-800-DISASTER</span><br>
+                    <small class="text-muted">Available 24 hours a day, 7 days a week</small>
+                </p>
+            </div>
+        </div>
+
+        <h4>General Contact Information</h4>
+        <ul class="list-unstyled">
+            <li class="mb-3">
+                <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                <strong>Headquarters:</strong><br>
+                123 Relief Avenue<br>
+                Disaster City, DC 12345<br>
+                United States
+            </li>
+            <li class="mb-3">
+                <i class="bi bi-telephone-fill text-primary me-2"></i>
+                <strong>General Inquiries:</strong><br>
+                +1 (555) 123-4567
+            </li>
+            <li class="mb-3">
+                <i class="bi bi-envelope-fill text-primary me-2"></i>
+                <strong>Email:</strong><br>
+                info@disasteralleviation.org
+            </li>
+            <li class="mb-3">
+                <i class="bi bi-clock-fill text-primary me-2"></i>
+                <strong>Office Hours:</strong><br>
+                Monday - Friday: 8:00 AM - 6:00 PM<br>
+                Saturday: 9:00 AM - 4:00 PM<br>
+                Sunday: Emergency calls only
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4>Department Contacts</h4>
+        <div class="accordion" id="departmentAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#volunteer" aria-expanded="true" aria-controls="volunteer">
+                        <i class="bi bi-people me-2"></i>Volunteer Services
+                    </button>
+                </h2>
+                <div id="volunteer" class="accordion-collapse collapse show" data-bs-parent="#departmentAccordion">
+                    <div class="accordion-body">
+                        <strong>Email:</strong> volunteers@disasteralleviation.org<br>
+                        <strong>Phone:</strong> +1 (555) 123-4568<br>
+                        <strong>Coordinator:</strong> Sarah Johnson
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#donations" aria-expanded="false" aria-controls="donations">
+                        <i class="bi bi-gift me-2"></i>Donations & Resources
+                    </button>
+                </h2>
+                <div id="donations" class="accordion-collapse collapse" data-bs-parent="#departmentAccordion">
+                    <div class="accordion-body">
+                        <strong>Email:</strong> donations@disasteralleviation.org<br>
+                        <strong>Phone:</strong> +1 (555) 123-4569<br>
+                        <strong>Coordinator:</strong> Michael Chen
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operations" aria-expanded="false" aria-controls="operations">
+                        <i class="bi bi-gear me-2"></i>Emergency Operations
+                    </button>
+                </h2>
+                <div id="operations" class="accordion-collapse collapse" data-bs-parent="#departmentAccordion">
+                    <div class="accordion-body">
+                        <strong>Email:</strong> operations@disasteralleviation.org<br>
+                        <strong>Phone:</strong> +1 (555) 123-4570<br>
+                        <strong>Director:</strong> Dr. Amanda Rodriguez
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Social Media</h4>
+            <p>Follow us for the latest updates and emergency information:</p>
+            <div class="d-flex gap-3">
+                <a href="#" class="btn btn-outline-primary">
+                    <i class="bi bi-facebook"></i> Facebook
+                </a>
+                <a href="#" class="btn btn-outline-info">
+                    <i class="bi bi-twitter"></i> Twitter
+                </a>
+                <a href="#" class="btn btn-outline-danger">
+                    <i class="bi bi-youtube"></i> YouTube
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Regional Offices</h4>
+            <p class="small">
+                We have regional offices across the globe to provide localized support. 
+                Contact our main office for information about regional contacts in your area.
+            </p>
+        </div>
+    </div>
+</div>

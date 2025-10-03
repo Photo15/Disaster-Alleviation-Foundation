@@ -1,0 +1,81 @@
+@model IncidentReport
+
+@{
+    ViewData["Title"] = "Report New Incident";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>@ViewData["Title"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="Title" class="form-control" placeholder="Incident Title" />
+                                <label asp-for="Title" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-floating">
+                                <textarea asp-for="Description" class="form-control" style="height: 120px" placeholder="Describe the incident"></textarea>
+                                <label asp-for="Description" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="Location" class="form-control" placeholder="Location" />
+                                <label asp-for="Location" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="Location" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <select asp-for="Priority" class="form-select">
+                                    <option value="Low">Low Priority</option>
+                                    <option value="Medium" selected>Medium Priority</option>
+                                    <option value="High">High Priority</option>
+                                </select>
+                                <label asp-for="Priority" class="form-label"></label>
+                            </div>
+                            <span asp-validation-for="Priority" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Important:</strong> Provide accurate and detailed information to help emergency responders 
+                        coordinate an effective response. Your report will be reviewed by our emergency response team.
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-left me-1"></i>Back to List
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-send me-1"></i>Submit Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

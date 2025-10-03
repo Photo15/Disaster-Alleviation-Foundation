@@ -1,0 +1,179 @@
+@model IEnumerable<DisasterAlleviationFoundation.Models.VolunteerTask>
+
+@{
+    ViewData["Title"] = "Volunteer Tasks";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">
+        <i class="bi bi-people me-2"></i>Volunteer Tasks Management
+    </h2>
+    <div>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-success me-2">
+                <i class="bi bi-plus-circle me-1"></i>New Task
+            </a>
+        }
+        @if (User.IsInRole("Volunteer"))
+        {
+            <a asp-action="Available" class="btn btn-outline-primary me-2">
+                <i class="bi bi-search me-1"></i>Available Tasks
+            </a>
+            <a asp-action="MyTasks" class="btn btn-outline-success">
+                <i class="bi bi-person-check me-1"></i>My Tasks
+            </a>
+        }
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <i class="bi bi-people text-muted" style="font-size: 3rem;"></i>
+        <h4 class="text-muted mt-3">No Tasks Available</h4>
+        <p class="text-muted">No volunteer tasks have been created yet.</p>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-success">Create First Task</a>
+        }
+    </div>
+}
+else
+{
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-list-task" style="font-size: 2rem;"></i>
+                    <h4 class="mt-2">@Model.Count()</h4>
+                    <p class="mb-0">Total Tasks</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-check-circle" style="font-size: 2rem;"></i>
+                    <h4 class="mt-2">@Model.Count(t => t.Status == "Completed")</h4>
+                    <p class="mb-0">Completed</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-check" style="font-size: 2rem;"></i>
+                    <h4 class="mt-2">@Model.Count(t => t.Status == "Assigned")</h4>
+                    <p class="mb-0">Assigned</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-clock" style="font-size: 2rem;"></i>
+                    <h4 class="mt-2">@Model.Count(t => t.Status == "Open")</h4>
+                    <p class="mb-0">Open</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TaskDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Location)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Priority)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EstimatedHours)
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderBy(t => t.TaskDate))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                    @if (item.Priority == "High")
+                                    {
+                                        <span class="badge bg-danger ms-1">High Priority</span>
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                                <td>
+                                    @if (item.Status == "Completed")
+                                    {
+                                        <span class="badge bg-success">@item.Status</span>
+                                    }
+                                    else if (item.Status == "Assigned")
+                                    {
+                                        <span class="badge bg-warning">@item.Status</span>
+                                    }
+                                    else if (item.Status == "Open")
+                                    {
+                                        <span class="badge bg-info">@item.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">@item.Status</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.Priority == "High")
+                                    {
+                                        <span class="text-danger">@item.Priority</span>
+                                    }
+                                    else if (item.Priority == "Medium")
+                                    {
+                                        <span class="text-warning">@item.Priority</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">@item.Priority</span>
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.EstimatedHours) hrs</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
