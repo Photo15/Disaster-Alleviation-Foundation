@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "v7CwJUiIbhllfvqfzVy5RMiY4RJjYyUoAIzBzOS4qsU=",
+  "Hash": "ygtRI9uC+M7SVC9vPrigdu3JQGFqIiVT8oqSmaBnCOY=",
   "Source": "DisasterAlleviationFoundation",
   "BasePath": "_content/DisasterAlleviationFoundation",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "DisasterAlleviationFoundation\\wwwroot",
       "Source": "DisasterAlleviationFoundation",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "Pattern": "**"
     }
@@ -1157,10 +1157,10 @@
       "OriginalItemSpec": "C:\\Users\\pc\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\8.0.0\\staticwebassets\\V5\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\css\\site.css",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -1176,10 +1176,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\js\\site.js",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -1195,10 +1195,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -1214,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -1233,10 +1233,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1252,10 +1252,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1271,10 +1271,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "DisasterAlleviationFoundation",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pc\\Desktop\\Photo\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\wwwroot\\",
       "BasePath": "_content/DisasterAlleviationFoundation",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",

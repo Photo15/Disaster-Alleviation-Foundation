@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2MNxTZHM4+Y=",
+  "dgSpecHash": "3OWIvu87LwQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\pc\\Desktop\\Photo\\DisasterAlleviationFoundation.csproj",
+  "projectFilePath": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\DisasterAlleviationFoundation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pc\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\pc\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

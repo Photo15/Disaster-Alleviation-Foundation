@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pc\\Desktop\\Photo\\DisasterAlleviationFoundation.csproj": {}
+    "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\DisasterAlleviationFoundation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pc\\Desktop\\Photo\\DisasterAlleviationFoundation.csproj": {
+    "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\DisasterAlleviationFoundation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pc\\Desktop\\Photo\\DisasterAlleviationFoundation.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\DisasterAlleviationFoundation.csproj",
         "projectName": "DisasterAlleviationFoundation",
-        "projectPath": "C:\\Users\\pc\\Desktop\\Photo\\DisasterAlleviationFoundation.csproj",
+        "projectPath": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\DisasterAlleviationFoundation.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pc\\Desktop\\Photo\\obj\\",
+        "outputPath": "C:\\Users\\pc\\Desktop\\Disaster-Alleviation-Foundation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config"

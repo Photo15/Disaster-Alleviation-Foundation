@@ -62,6 +62,7 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     
     // Create roles
     string[] roles = { "Admin", "Volunteer", "Donor", "RegularUser" };
@@ -86,6 +87,77 @@ using (var scope = app.Services.CreateScope())
         };
         await userManager.CreateAsync(adminUser, "Admin123!");
         await userManager.AddToRoleAsync(adminUser, "Admin");
+    }
+    
+    // Seed sample volunteer tasks if none exist
+    if (!context.VolunteerTasks.Any())
+    {
+        var sampleTasks = new[]
+        {
+            new DisasterAlleviationFoundation.Models.VolunteerTask
+            {
+                Title = "Emergency Food Distribution",
+                Description = "Help distribute emergency food supplies to affected families in the evacuation center.",
+                TaskDate = DateTime.Now.AddDays(1),
+                Location = "Community Center, Main Street",
+                RequiredSkills = "Physical Labor",
+                EstimatedHours = 4,
+                Priority = "High",
+                Status = "Open",
+                CreatedDate = DateTime.Now
+            },
+            new DisasterAlleviationFoundation.Models.VolunteerTask
+            {
+                Title = "Medical Aid Station Support",
+                Description = "Assist medical professionals with organizing supplies and helping patients at the aid station.",
+                TaskDate = DateTime.Now.AddDays(2),
+                Location = "Municipal Health Center",
+                RequiredSkills = "First Aid, Communication",
+                EstimatedHours = 6,
+                Priority = "High",
+                Status = "Open",
+                CreatedDate = DateTime.Now
+            },
+            new DisasterAlleviationFoundation.Models.VolunteerTask
+            {
+                Title = "Cleanup and Debris Removal",
+                Description = "Help clear debris and assist with cleanup efforts in affected neighborhoods.",
+                TaskDate = DateTime.Now.AddDays(3),
+                Location = "Riverside District",
+                RequiredSkills = "Physical Labor",
+                EstimatedHours = 8,
+                Priority = "Medium",
+                Status = "Open",
+                CreatedDate = DateTime.Now
+            },
+            new DisasterAlleviationFoundation.Models.VolunteerTask
+            {
+                Title = "Children's Activity Coordinator",
+                Description = "Organize activities and provide emotional support for children in temporary shelters.",
+                TaskDate = DateTime.Now.AddDays(4),
+                Location = "Temporary Shelter, School Gymnasium",
+                RequiredSkills = "Childcare, Psychology",
+                EstimatedHours = 5,
+                Priority = "Medium",
+                Status = "Open",
+                CreatedDate = DateTime.Now
+            },
+            new DisasterAlleviationFoundation.Models.VolunteerTask
+            {
+                Title = "Supply Inventory Management",
+                Description = "Help organize and track incoming donations and supplies.",
+                TaskDate = DateTime.Now.AddDays(5),
+                Location = "Warehouse District",
+                RequiredSkills = "Organization, Computer Skills",
+                EstimatedHours = 3,
+                Priority = "Low",
+                Status = "Open",
+                CreatedDate = DateTime.Now
+            }
+        };
+        
+        context.VolunteerTasks.AddRange(sampleTasks);
+        await context.SaveChangesAsync();
     }
 }
 

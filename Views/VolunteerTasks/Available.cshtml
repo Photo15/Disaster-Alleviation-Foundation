@@ -10,6 +10,15 @@
     </h2>
 </div>
 
+@if (!User.IsInRole("Volunteer") && !User.IsInRole("Admin"))
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        <strong>Want to volunteer?</strong> To sign up for tasks, you'll need to be assigned the Volunteer role. 
+        Please contact an administrator to get volunteer permissions.
+    </div>
+}
+
 @if (!Model.Any())
 {
     <div class="text-center py-5">

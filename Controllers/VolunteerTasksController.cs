@@ -29,7 +29,6 @@ public class VolunteerTasksController : Controller
     }
 
     // GET: Available Tasks
-    [Authorize(Roles = "Volunteer,Admin")]
     public async Task<IActionResult> Available()
     {
         var availableTasks = await _context.VolunteerTasks

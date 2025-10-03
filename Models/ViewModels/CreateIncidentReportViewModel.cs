@@ -1,11 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DisasterAlleviationFoundation.Models;
+namespace DisasterAlleviationFoundation.Models.ViewModels;
 
-public class IncidentReport
+public class CreateIncidentReportViewModel
 {
-    public int Id { get; set; }
-
     [Required(ErrorMessage = "Title is required")]
     [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters")]
     [Display(Name = "Incident Title")]
@@ -20,16 +18,6 @@ public class IncidentReport
     [StringLength(500, ErrorMessage = "Location cannot exceed 500 characters")]
     [Display(Name = "Incident Location")]
     public string Location { get; set; } = string.Empty;
-
-    [Display(Name = "Date Reported")]
-    [DataType(DataType.DateTime)]
-    public DateTime DateReported { get; set; } = DateTime.Now;
-
-    [Display(Name = "Reported By")]
-    public string ReportedByUserId { get; set; } = string.Empty;
-
-    [Display(Name = "Status")]
-    public string Status { get; set; } = "Open";
 
     [Display(Name = "Priority Level")]
     public string Priority { get; set; } = "Medium";

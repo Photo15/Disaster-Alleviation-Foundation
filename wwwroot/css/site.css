@@ -359,3 +359,28 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Incident Report Priority Styling */
+.priority-high {
+  border-left: 4px solid var(--danger-color) !important;
+}
+
+.priority-medium {
+  border-left: 4px solid var(--warning-color) !important;
+}
+
+.priority-low {
+  border-left: 4px solid var(--success-color) !important;
+}
+
+.priority-high .card-header {
+  background-color: rgba(220, 38, 38, 0.1);
+}
+
+.priority-medium .card-header {
+  background-color: rgba(217, 119, 6, 0.1);
+}
+
+.priority-low .card-header {
+  background-color: rgba(5, 150, 105, 0.1);
+}

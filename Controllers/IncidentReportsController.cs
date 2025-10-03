@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using DisasterAlleviationFoundation.Data;
 using DisasterAlleviationFoundation.Models;
+using DisasterAlleviationFoundation.Models.ViewModels;
 using System.Security.Claims;
 
 namespace DisasterAlleviationFoundation.Controllers;
@@ -50,16 +51,16 @@ public class IncidentReportsController : Controller
     // GET: IncidentReports/Create
     public IActionResult Create()
     {
-        return View();
+        return View(new CreateIncidentReportViewModel());
     }
 
     // POST: IncidentReports/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Title,Description,Location,Priority")] IncidentReport incidentReport)
+    public async Task<IActionResult> Create(CreateIncidentReportViewModel model)
     {
         _logger.LogInformation("Create POST action called");
-        _logger.LogInformation($"Model received - Title: {incidentReport.Title}, Description: {incidentReport.Description}, Location: {incidentReport.Location}, Priority: {incidentReport.Priority}");
+        _logger.LogInformation($"Model received - Title: {model.Title}, Description: {model.Description}, Location: {model.Location}, Priority: {model.Priority}");
         
         // Log all ModelState errors
         if (!ModelState.IsValid)
@@ -71,38 +72,41 @@ public class IncidentReportsController : Controller
                     _logger.LogError($"ModelState Error - Key: {error.Key}, Error: {subError.ErrorMessage}");
                 }
             }
+            return View(model);
         }
 
-        if (ModelState.IsValid)
+        try
         {
-            try
+            var incidentReport = new IncidentReport
             {
-                incidentReport.ReportedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-                incidentReport.DateReported = DateTime.Now;
-                incidentReport.Status = "Open";
+                Title = model.Title,
+                Description = model.Description,
+                Location = model.Location,
+                Priority = model.Priority,
+                ReportedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty,
+                DateReported = DateTime.Now,
+                Status = "Open"
+            };
 
-                _logger.LogInformation($"Adding incident to context: {incidentReport.Title}");
-                _context.Add(incidentReport);
-                
-                _logger.LogInformation("Calling SaveChangesAsync");
-                var result = await _context.SaveChangesAsync();
-                _logger.LogInformation($"SaveChangesAsync returned: {result} changes");
-                
-                _logger.LogInformation("New incident report created: {Title} by user {UserId}", 
-                    incidentReport.Title, incidentReport.ReportedByUserId);
-                
-                TempData["Success"] = "Incident report submitted successfully!";
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error saving incident report");
-                ModelState.AddModelError("", "An error occurred while saving the incident report. Please try again.");
-            }
+            _logger.LogInformation($"Adding incident to context: {incidentReport.Title}");
+            _context.Add(incidentReport);
+            
+            _logger.LogInformation("Calling SaveChangesAsync");
+            var result = await _context.SaveChangesAsync();
+            _logger.LogInformation($"SaveChangesAsync returned: {result} changes");
+            
+            _logger.LogInformation("New incident report created: {Title} by user {UserId}", 
+                incidentReport.Title, incidentReport.ReportedByUserId);
+            
+            TempData["Success"] = "Incident report submitted successfully!";
+            return RedirectToAction(nameof(Index));
         }
-        
-        _logger.LogWarning("Returning to Create view due to validation errors or save failure");
-        return View(incidentReport);
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error saving incident report");
+            ModelState.AddModelError("", "An error occurred while saving the incident report. Please try again.");
+            return View(model);
+        }
     }
 
     // GET: IncidentReports/Edit/5
